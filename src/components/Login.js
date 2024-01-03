@@ -1,6 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, { cloneElement, useRef, useState } from 'react';
 import Header from './Header';
 import { checkValidData } from '../utils/validation';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../utils/firebase';
 
 function Login() {
   const [isSignUpForm, setIsSignUpForm] = useState();
@@ -14,10 +16,30 @@ function Login() {
     //1.  check validation
     const msg = checkValidData(email.current.value, password.current.value);
     setErrorMessage(msg);
+    console.log(isSignUpForm);
     if (msg) return;
-    
-    
     //2.  Sign up & sign in
+    if (!isSignUpForm) {
+      // sign up logic
+      console.log(email.current.value, password.current.value);
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredentials) => {
+          const user = userCredentials.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const erorCode = error.code;
+          const errorMsg = error.message;
+          setErrorMessage(erorCode + '-' + errorMsg);
+        });
+    } else {
+      // sign in logic
+      console.log('you enter login page');
+    }
   };
   const handleSubmit = (e) => {
     e.preventDefault();
