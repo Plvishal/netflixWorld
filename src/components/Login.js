@@ -11,9 +11,13 @@ function Login() {
     setIsSignUpForm(!isSignUpForm);
   };
   const handleButtonCLick = () => {
-    const mesg = checkValidData(email.current.value, password.current.value);
-    console.log(mesg);
-    setErrorMessage(mesg);
+    //1.  check validation
+    const msg = checkValidData(email.current.value, password.current.value);
+    setErrorMessage(msg);
+    if (msg) return;
+    
+    
+    //2.  Sign up & sign in
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -54,7 +58,7 @@ function Login() {
             type="password"
             placeholder="Password"
             className="p-4 my-4 w-full bg-gray-500 rounded-lg"
-          /> 
+          />
           <p className="text-red-500 text-lg font-bold">{errMessage}</p>
           <button
             className="p-4 my-6 bg-red-700 w-full rounded-lg"
