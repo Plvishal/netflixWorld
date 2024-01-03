@@ -10,8 +10,8 @@ function Login() {
     setIsSignUpForm(!isSignUpForm);
   };
   const handleButtonCLick = () => {
-    // checkValidData(email, password);
-    console.log(email, password);
+    const mesg = checkValidData(email.current.value, password.current.value);
+    console.log(mesg);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
