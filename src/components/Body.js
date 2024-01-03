@@ -31,7 +31,7 @@ function Body() {
         dispatch(removeUser());
       }
     });
-  });
+  }, []);
   return (
     <>
       <RouterProvider router={appRouter} />

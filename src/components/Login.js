@@ -4,6 +4,7 @@ import { checkValidData } from '../utils/validation';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from 'firebase/auth';
 import { auth } from '../utils/firebase';
 import { useNavigate } from 'react-router-dom';
@@ -14,6 +15,7 @@ function Login() {
   const navigate = useNavigate();
   const email = useRef(null);
   const password = useRef(null);
+  const name = useRef(null);
   const toggleSignUpForm = () => {
     setIsSignUpForm(!isSignUpForm);
   };
@@ -28,12 +30,13 @@ function Login() {
       // sign up logic
       createUserWithEmailAndPassword(
         auth,
+        name.current.value,
         email.current.value,
         password.current.value
       )
         .then((userCredentials) => {
           const user = userCredentials.user;
-          console.log(user);
+          navigate('/browse');
         })
         .catch((error) => {
           const erorCode = error.code;
