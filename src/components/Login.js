@@ -21,7 +21,6 @@ function Login() {
     //2.  Sign up & sign in
     if (!isSignUpForm) {
       // sign up logic
-      console.log(email.current.value, password.current.value);
       createUserWithEmailAndPassword(
         auth,
         email.current.value,
