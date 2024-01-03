@@ -4,6 +4,7 @@ import { checkValidData } from '../utils/validation';
 
 function Login() {
   const [isSignUpForm, setIsSignUpForm] = useState();
+  const [errMessage, setErrorMessage] = useState(null);
   const email = useRef(null);
   const password = useRef(null);
   const toggleSignUpForm = () => {
@@ -12,6 +13,7 @@ function Login() {
   const handleButtonCLick = () => {
     const mesg = checkValidData(email.current.value, password.current.value);
     console.log(mesg);
+    setErrorMessage(mesg);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -50,9 +52,10 @@ function Login() {
           <input
             ref={password}
             type="password"
-            placeholder="Email Address"
+            placeholder="Password"
             className="p-4 my-4 w-full bg-gray-500 rounded-lg"
-          />
+          /> 
+          <p className="text-red-500 text-lg font-bold">{errMessage}</p>
           <button
             className="p-4 my-6 bg-red-700 w-full rounded-lg"
             onClick={handleButtonCLick}
